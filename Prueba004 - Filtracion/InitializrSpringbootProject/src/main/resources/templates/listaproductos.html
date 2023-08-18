@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        
+        <!-- TITULO DINAMICO -->
+        <!-- <h1>Todos los productos</h1> -->
+        
+        <!-- CONDICION SEGUN LA URL ACTUAL DE LA PAGINA WEB -->
+        <h1 th:if="${#httpServletRequest.requestURI == '/productos/' or 
+                     #httpServletRequest.requestURI == '/productos'}">Todos los productos</h1>
+        <div th:unless="${#httpServletRequest.requestURI == '/productos/' or 
+                          #httpServletRequest.requestURI == '/productos'}">
+            <!-- SI NO ESTA EN LA PAGINA QUE VA A MOSTRAR TODOS LOS PRODUCTOS, ENTONCES VA A MOSTRAR EL NOMBRE 
+            DE LA CATEGORIA COMO TITULO-->
+            <h1 th:text="${categoriaunica.nombre}"></h1>
+        </div>
+        
+        
+        <!-- RUTA PARA MOSTRAR TODOS LOS PRODUCTOS -->
+        <a th:href="@{/productos}">Todos los productos</a>
+        
+        <div th:each="seccion: ${categorias}">          
+            <!-- RUTA PARA MOSTRAR PRODUCTOS POR UNA CATEGORIA -->
+            <!-- <a th:href="@{/productos/{id} (id = ${seccion.id_categoria})}"> -->
+                <a th:href="@{/productos/{nombre}(nombre=${seccion.nombre})}">
+                <span th:text="${seccion.nombre}"></span>
+            </a>
+        </div>
+        
+        <br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Oferta</th>
+                    <th>Precio normal</th>
+                    <th>Precio de oferta</th>
+                    <th>Estado Producto</th>
+                    <th>Categoria</th>
+                    <th>Estado Categoria</th>
+                    <th>Marca</th>
+                    <th>Estado Marca</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="registro: ${productos}">
+                    <td th:text="${registro.id_producto}"></td>
+                    <td th:text="${registro.nombre}"></td>
+                    <td th:text="${registro.oferta}"></td>
+                    <td th:text="${registro.precionormal}"></td>
+                    <td th:text="${registro.preciooferta}"></td>
+                    <td th:text="${registro.estado}"></td>
+                    <!-- OBTENER LOS VALORES "NOMBRE" Y "ESTADO" DE CADA UNA DE LAS TABLAS A LA QUE ESTA RELACIONADA PRODUCTOS -->
+                    <td th:text="${registro.categoriaEntity.nombre}"></td>
+                    <td th:text="${registro.categoriaEntity.estado}"></td>
+                    <td th:text="${registro.marcaEntity.nombre}"></td>
+                    <td th:text="${registro.marcaEntity.estado}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
