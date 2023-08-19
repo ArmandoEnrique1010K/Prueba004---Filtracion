@@ -10,5 +10,9 @@ public interface ProductoService {
     public List<ProductoEntity> ListarProductos();
     public List<ProductoEntity> ListarProductosPorCategoria2();
     public List<ProductoEntity> listarProductosPorCategoriaEspecifica(Long categoriaId);
-
+    public List<ProductoEntity> listarProductosEnOferta();
+    /*
+    public List<ProductoEntity> ListarProductoPorMarca123();
+    public List<ProductoEntity> listarProductosPorVariasMarcasEspecificas(List<Long> marcaIds);
+    */
 }

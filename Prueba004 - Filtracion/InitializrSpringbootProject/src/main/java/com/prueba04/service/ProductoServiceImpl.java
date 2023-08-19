@@ -30,4 +30,42 @@ public class ProductoServiceImpl implements ProductoService {
         return productoRepository.findAllByCategoriaIdParam(categoriaId);
     }
 
+    // LISTAR TODOS LOS PRODUCTOS QUE ESTAN EN OFERTA
+    @Override
+    public List<ProductoEntity> listarProductosEnOferta() {
+        return productoRepository.findAllByOfertaTrue();
+    }
+
+    /*
+    // LISTAR TODOS LOS PRODUCTOS QUE COINCIDAN CON EL ID 1, 2 Y 3 DE LA MARCA
+    @Override
+    public List<ProductoEntity> ListarProductoPorMarca123() {
+        return productoRepository.findAllByMarcaID123();
+    }
+
+    // LISTAR TODOS LOS PRODUCTOS POR VARIAS MARCAS ESPECIFICAS
+    @Override
+    public List<ProductoEntity> listarProductosPorVariasMarcasEspecificas(List<Long> marcaIds) {
+        return productoRepository.findAllByMarcaIDsParams(marcaIds);
+    }
+*/
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

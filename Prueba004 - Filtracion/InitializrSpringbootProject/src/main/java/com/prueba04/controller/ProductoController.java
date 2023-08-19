@@ -3,12 +3,14 @@ package com.prueba04.controller;
 import com.prueba04.entity.CategoriaEntity;
 import com.prueba04.service.CategoriaService;
 import com.prueba04.service.ProductoService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/productos")
@@ -20,6 +22,7 @@ public class ProductoController {
     @Autowired
     private CategoriaService categoriaService;
 
+
     @GetMapping
     public String inicio(Model modelo) {
         modelo.addAttribute("productos", productoService.ListarProductos());
@@ -27,6 +30,7 @@ public class ProductoController {
         modelo.addAttribute("categorias", categoriaService.ListarCategorias());
         return "listaproductos.html";
     }
+
 
     /*
     @GetMapping("/{categoriaId}")
@@ -59,4 +63,13 @@ public class ProductoController {
         }
     }
 
+    @GetMapping("/oferta")
+    public String listarProductosQueEstanEnOferta(Model modelo){
+        modelo.addAttribute("productos", productoService.listarProductosEnOferta());
+        // EN LA PAGINA WEB listaproductos.html SIEMPRE SE VA A DEFINIR EL ATRIBUTO QUE VA A LISTAR TODAS LAS CATEGORIAS PARA QUE EL
+        // USUARIO SE PUEDA DESPLAZARSE ENTRE PAGINAS
+        modelo.addAttribute("categorias", categoriaService.ListarCategorias());
+        // NO SE HA DEFINIDO EL ATRIBUTO categoriaunica...
+        return "listaproductos.html";
+    }
 }

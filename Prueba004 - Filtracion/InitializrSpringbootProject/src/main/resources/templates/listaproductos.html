@@ -11,15 +11,37 @@
         <!-- <h1>Todos los productos</h1> -->
         
         <!-- CONDICION SEGUN LA URL ACTUAL DE LA PAGINA WEB -->
+        <!--
         <h1 th:if="${#httpServletRequest.requestURI == '/productos/' or 
                      #httpServletRequest.requestURI == '/productos'}">Todos los productos</h1>
         <div th:unless="${#httpServletRequest.requestURI == '/productos/' or 
                           #httpServletRequest.requestURI == '/productos'}">
+            -->
             <!-- SI NO ESTA EN LA PAGINA QUE VA A MOSTRAR TODOS LOS PRODUCTOS, ENTONCES VA A MOSTRAR EL NOMBRE 
             DE LA CATEGORIA COMO TITULO-->
+            <!-- 
             <h1 th:text="${categoriaunica.nombre}"></h1>
         </div>
+                    -->
         
+                    
+                    
+        <!-- PARA EVITAR CONFUSIONES EN EL MAPEO DE RUTAS, PARA QUE EL TITULO SEA DINAMICO: -->
+        
+        <!-- SI LA URL TIENE LA RUTA "/productos" (AL SELECCIONAR TODOS LOS PRODUCTOS) VA A MOSTRAR EL TITULO ESTATICO -->
+        <h1 th:if="${#httpServletRequest.requestURI == '/productos'}">Todos los productos</h1>
+        
+        <!-- PERO SI LA URL NO TIENE LA RUTA "/productos" (SOLO OCURRE AL SELECCIONAR UNA CATEGORIA) -->
+        <div th:unless="${#httpServletRequest.requestURI == '/productos'}">
+            
+            <!-- SI EL ATRIBUTO "categoriaunica" ES DIFERENTE DE UN VALOR NULO, VA A MOSTRAR EL NOMBRE DE LA CATEGORIA -->
+            <h1 th:if="${categoriaunica != null}" th:text="${categoriaunica.nombre}"></h1>
+            
+            <!-- SI LA URL TIENE LA RUTA "/productos/oferta" Y EL ATRIBUTO "categoriaunica" ES NULO, VA A MOSTRAR UN TITULO ESTATICO -->
+            <h1 th:if="${#httpServletRequest.requestURI == '/productos/oferta' and categoriaunica == null}">Productos en oferta</h1>
+            
+        </div>
+
         
         <!-- RUTA PARA MOSTRAR TODOS LOS PRODUCTOS -->
         <a th:href="@{/productos}">Todos los productos</a>
@@ -32,6 +54,10 @@
             </a>
         </div>
         
+        <!-- RUTA PARA MOSTRAR LOS PRODUCTOS EN OFERTA -->
+        <a th:href="@{/productos/oferta}">Productos en Oferta</a>
+        
+        <br>
         <br>
         <table border="1">
             <thead>
